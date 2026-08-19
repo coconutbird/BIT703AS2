@@ -1,0 +1,260 @@
+.gear-masthead {
+  background-color: #fff;
+  border-bottom: 1px solid var(--gear-fog);
+}
+
+/* .navbar sets --bs-navbar-padding-x: 0 and beats .container-xxl, so
+   without this the header would not line up with the page content. */
+.gear-masthead .navbar {
+  padding-block: 0.75rem;
+  padding-inline: calc(var(--bs-gutter-x) * 0.5);
+}
+
+.gear-brand img {
+  height: 42px;
+  width: auto;
+}
+
+.gear-nav .nav-link {
+  font-family: var(--gear-font-heading);
+  font-size: 0.9375rem;
+  color: var(--gear-alpine);
+  padding-inline: 1.25rem;
+}
+
+.gear-nav .nav-link:hover,
+.gear-nav .nav-link:focus {
+  color: var(--gear-pine);
+}
+
+/* Matches the aria-current state so both audiences get the cue. */
+.gear-nav .nav-link[aria-current="page"] {
+  color: var(--gear-pine);
+  font-weight: 600;
+}
+
+/* A pseudo-element, not a literal "|", which a screen reader announces. */
+@media (min-width: 992px) {
+  .gear-nav .nav-item + .nav-item::before {
+    content: "";
+    position: absolute;
+    inset-block: 0.6rem;
+    left: 0;
+    width: 1px;
+    background-color: var(--gear-fog);
+  }
+
+  .gear-nav .nav-item {
+    position: relative;
+  }
+}
+
+.gear-cart-button {
+  --bs-btn-bg: var(--gear-pine);
+  --bs-btn-border-color: var(--gear-pine);
+  --bs-btn-color: #fff;
+  --bs-btn-hover-bg: var(--gear-pine-dark);
+  --bs-btn-hover-border-color: var(--gear-pine-dark);
+  --bs-btn-hover-color: #fff;
+  position: relative;
+  padding: 0.5rem 1.1rem;
+  font-size: 0.875rem;
+}
+
+.gear-cart-button .bi {
+  margin-right: 0.4rem;
+}
+
+.gear-cart-button__badge {
+  position: absolute;
+  top: -0.45rem;
+  right: -0.45rem;
+  min-width: 1.35rem;
+  padding: 0.15rem 0.35rem;
+  border-radius: 999px;
+  background-color: var(--gear-alpine);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.gear-header-search {
+  max-width: 320px;
+}
+
+.gear-header-search .form-control {
+  border-radius: var(--gear-radius);
+  border-color: var(--gear-fog);
+  font-size: 0.875rem;
+}
+
+.gear-header-search .input-group-text {
+  background-color: #fff;
+  border-color: var(--gear-fog);
+  color: var(--gear-ink-muted);
+}
+
+/* Both footer variants live here; each page includes only its own. */
+.gear-footer {
+  border-top: 1px solid var(--gear-fog);
+  padding-top: 3rem;
+  background-color: #fff;
+}
+
+.gear-footer img {
+  height: 38px;
+  width: auto;
+}
+
+.gear-footer h2 {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gear-alpine);
+  margin-bottom: 1rem;
+}
+
+.gear-footer ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.gear-footer li + li {
+  margin-top: 0.5rem;
+}
+
+.gear-footer a {
+  color: var(--gear-alpine);
+  text-decoration: none;
+  font-size: 0.9375rem;
+}
+
+.gear-footer a:hover,
+.gear-footer a:focus {
+  color: var(--gear-pine);
+  text-decoration: underline;
+}
+
+.gear-footer address {
+  font-size: 0.875rem;
+  color: var(--gear-ink-muted);
+  margin-bottom: 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--gear-fog);
+}
+
+.gear-footer__base {
+  margin-top: 2.5rem;
+  padding-block: 1rem;
+  border-top: 1px solid var(--gear-fog);
+  font-size: 0.875rem;
+  color: var(--gear-ink-muted);
+}
+
+.gear-footer__nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 0;
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0.75rem;
+}
+
+.gear-footer__nav li + li::before {
+  content: "";
+  display: inline-block;
+  width: 1px;
+  height: 0.85em;
+  margin-inline: 1rem;
+  vertical-align: -0.1em;
+  background-color: var(--gear-fog);
+}
+
+/* visibility is animated as well as opacity: an opacity-0 element still
+   catches clicks. */
+.gear-anchor {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 1030;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(0.75rem);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    visibility 0.25s;
+}
+
+.gear-anchor.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.gear-anchor__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border: 0;
+  border-radius: 50%;
+  background-color: var(--gear-pine);
+  color: #fff;
+  font-size: 1.35rem;
+  box-shadow: 0 4px 14px rgb(29 43 44 / 28%);
+}
+
+.gear-anchor__toggle:hover,
+.gear-anchor__toggle:focus-visible {
+  background-color: var(--gear-alpine);
+}
+
+.gear-anchor__menu {
+  list-style: none;
+  margin: 0 0 0.75rem;
+  padding: 0.5rem;
+  background: #fff;
+  border: 1px solid var(--gear-fog);
+  box-shadow: 0 4px 14px rgb(29 43 44 / 14%);
+  min-width: 190px;
+}
+
+.gear-anchor__menu a {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  color: var(--gear-ink);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.gear-anchor__menu a:hover,
+.gear-anchor__menu a:focus {
+  background-color: var(--gear-snow);
+  color: var(--gear-pine);
+}
+
+/* Set by the IntersectionObserver in js/components/floating-anchor.js. */
+.gear-anchor__menu a.is-current {
+  color: var(--gear-alpine);
+  font-weight: 600;
+  box-shadow: inset 3px 0 0 var(--gear-alpine);
+}
+
+@media (max-width: 575.98px) {
+  .gear-anchor {
+    right: 0.75rem;
+    bottom: 0.75rem;
+  }
+
+  .gear-anchor__toggle {
+    width: 2.85rem;
+    height: 2.85rem;
+    font-size: 1.15rem;
+  }
+}

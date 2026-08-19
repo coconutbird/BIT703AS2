@@ -1,0 +1,136 @@
+.gear-product-card {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+}
+
+.gear-product-card__media {
+  display: block;
+  overflow: hidden;
+}
+
+.gear-product-card__media .gear-tile {
+  transition: transform 0.35s ease;
+}
+
+.gear-product-card:hover .gear-product-card__media .gear-tile {
+  transform: scale(1.04);
+}
+
+.gear-product-card__body {
+  padding-top: 0.85rem;
+}
+
+.gear-product-card__name {
+  margin-bottom: 0.35rem;
+  font-size: 0.8125rem;
+}
+
+.gear-product-card__name a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.gear-product-card__name a:hover,
+.gear-product-card__name a:focus {
+  color: var(--gear-pine);
+  text-decoration: underline;
+}
+
+.gear-product-card__price {
+  margin-bottom: 0;
+  font-size: 1rem;
+}
+
+.gear-product-card--feature .gear-tile {
+  aspect-ratio: 1 / 1;
+}
+
+.gear-product-row {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 1rem;
+  align-items: center;
+}
+
+.gear-product-row img {
+  width: 110px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border: 1px solid var(--gear-fog);
+}
+
+@media (max-width: 359.98px) {
+  .gear-product-row {
+    grid-template-columns: 1fr;
+  }
+
+  .gear-product-row img {
+    width: 100%;
+  }
+}
+
+.gear-stars {
+  display: flex;
+  align-items: center;
+  gap: 0.1rem;
+  margin-bottom: 0.35rem;
+}
+
+.gear-stars__icon {
+  font-size: 0.8rem;
+  color: var(--gear-pine);
+}
+
+.gear-stars__icon.bi-star {
+  color: var(--gear-mist);
+}
+
+.gear-category {
+  display: block;
+  text-decoration: none;
+}
+
+.gear-category__image {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border: 1px solid var(--gear-fog);
+}
+
+.gear-category__name {
+  margin: 0.75rem 0 0;
+  font-family: var(--gear-font-heading);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gear-alpine);
+}
+
+.gear-category:hover .gear-category__name,
+.gear-category:focus .gear-category__name {
+  color: var(--gear-pine);
+  text-decoration: underline;
+}
+
+/* Matches the category tiles' aspect ratio so the four sit on one baseline. */
+.gear-cta-tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 3 / 4;
+  background-color: var(--gear-pine);
+  color: #fff;
+  font-family: var(--gear-font-heading);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.gear-cta-tile:hover,
+.gear-cta-tile:focus {
+  background-color: var(--gear-alpine);
+  color: #fff;
+}

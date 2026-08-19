@@ -1,0 +1,15 @@
+# The site is authored on Windows but generated with LF endings, so the
+# repository and the working tree both stay LF and no file looks modified
+# just for having been checked out.
+* text=auto eol=lf
+
+*.html text
+*.css  text
+*.js   text
+*.md   text
+*.svg  text
+
+*.png   binary
+*.woff  binary
+*.woff2 binary
+*.docx  binary

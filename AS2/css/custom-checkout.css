@@ -1,0 +1,341 @@
+/* Below md the labels would wrap side by side, so the steps stack. */
+.gear-steps {
+  background-color: var(--gear-snow);
+  border-bottom: 1px solid var(--gear-fog);
+  padding-block: 2.5rem;
+}
+
+.gear-steps__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: none;
+}
+
+@media (max-width: 767.98px) {
+  .gear-steps {
+    padding-block: 1.25rem;
+  }
+
+  .gear-steps__list {
+    flex-direction: column;
+    gap: 0;
+  }
+}
+
+.gear-step {
+  flex: 1 1 0;
+  min-width: 0; /* lets long labels shrink instead of forcing overflow */
+
+  text-align: center;
+  border-bottom: 2px solid var(--gear-fog);
+}
+
+.gear-step a {
+  display: block;
+  padding: 0.75rem 0.5rem;
+  font-family: var(--gear-font-heading);
+  font-size: 1.05rem;
+  color: var(--gear-ink-muted);
+  text-decoration: none;
+}
+
+.gear-step__number {
+  font-variant-numeric: tabular-nums;
+}
+
+.gear-step--done a {
+  color: var(--gear-alpine);
+}
+
+/* Weight and rule, not colour alone; aria-current carries it to AT. */
+.gear-step--current {
+  border-bottom-color: var(--gear-pine);
+  border-bottom-width: 3px;
+}
+
+.gear-step--current a {
+  color: var(--gear-pine);
+  font-weight: 600;
+}
+
+@media (max-width: 767.98px) {
+  .gear-step {
+    flex: 1 1 auto;
+    text-align: left;
+    border-bottom-width: 1px;
+  }
+
+  .gear-step a {
+    padding-block: 0.6rem;
+  }
+}
+
+.gear-cart-list {
+  margin: 0;
+}
+
+.gear-cart-line {
+  display: grid;
+
+  grid-template-columns: 88px 1fr auto;
+  gap: 1rem;
+  align-items: start;
+  padding-block: 1.25rem;
+}
+
+.gear-cart-line + .gear-cart-line {
+  border-top: 1px solid var(--gear-fog);
+}
+
+.gear-cart-line__thumb {
+  width: 88px;
+  height: 88px;
+  object-fit: cover;
+  border: 1px solid var(--gear-fog);
+}
+
+.gear-cart-line__name {
+  font-family: var(--gear-font-heading);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gear-alpine);
+  margin-bottom: 0.25rem;
+}
+
+.gear-cart-line__blurb {
+  font-size: 0.875rem;
+  color: var(--gear-ink-muted);
+  margin-bottom: 0.35rem;
+}
+
+.gear-cart-line__price {
+  margin-bottom: 0;
+}
+
+.gear-cart-line__remove {
+  border: 0;
+  background: none;
+  padding: 0;
+  margin-top: 0.4rem;
+  font-size: 0.8125rem;
+  color: var(--gear-ink-muted);
+  text-decoration: underline;
+}
+
+.gear-cart-line__remove:hover,
+.gear-cart-line__remove:focus-visible {
+  color: var(--gear-alert);
+}
+
+@media (max-width: 575.98px) {
+  .gear-cart-line {
+    grid-template-columns: 72px 1fr;
+  }
+
+  .gear-cart-line__qty {
+    grid-column: 2;
+  }
+
+  .gear-cart-line__thumb {
+    width: 72px;
+    height: 72px;
+  }
+}
+
+.gear-summary__heading {
+  font-size: 1.75rem;
+}
+
+.gear-summary__rule {
+  border-color: var(--gear-fog);
+  opacity: 1;
+  margin-block: 0.75rem 1.25rem;
+}
+
+@media (min-width: 992px) {
+  .gear-summary__heading,
+  .gear-summary__rule,
+  .gear-summary__list,
+  .gear-summary__coupon,
+  .gear-voucher,
+  .gear-summary__totals {
+    position: relative;
+  }
+
+  aside:has(.gear-summary__totals) {
+    position: sticky;
+    top: 1.5rem;
+    align-self: start;
+  }
+}
+
+.gear-summary__list {
+  margin-bottom: 1.5rem;
+}
+
+.gear-summary__coupon {
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--gear-fog);
+  margin-bottom: 1.25rem;
+}
+
+.gear-summary__totals {
+  margin-bottom: 0;
+}
+
+.gear-summary__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  padding-block: 0.5rem;
+}
+
+.gear-summary__row dt {
+  font-family: var(--gear-font-heading);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gear-ink-muted);
+}
+
+.gear-summary__row dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  color: var(--gear-ink);
+}
+
+.gear-summary__row dd.is-free {
+  color: var(--gear-success);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+.gear-summary__row--total {
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--gear-fog);
+}
+
+.gear-summary__row--total dt {
+  font-size: 1.1rem;
+  color: var(--gear-alpine);
+  letter-spacing: 0.04em;
+}
+
+/* GST is inside the total, so this row is a note rather than a charge. */
+.gear-summary__row--note {
+  padding-top: 0.35rem;
+}
+
+.gear-summary__row--note dt,
+.gear-summary__row--note dd {
+  font-size: 0.8125rem;
+  color: var(--gear-ink-muted);
+  font-weight: 400;
+}
+
+.gear-summary__row--total dd {
+  font-family: var(--gear-font-heading);
+  font-size: 1.5rem;
+  color: var(--gear-pine);
+}
+
+/* Column padding, not a wider row gutter: g-5's -24px margins exceed the
+   container's 12px padding and the page scrolls sideways. */
+@media (min-width: 992px) {
+  aside:has(.gear-summary__totals) {
+    padding-left: 2rem;
+  }
+}
+
+.gear-summary-item {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 1rem;
+  align-items: center;
+  padding-block: 0.75rem;
+}
+
+.gear-summary-item + .gear-summary-item {
+  border-top: 1px solid var(--gear-fog);
+}
+
+.gear-summary-item img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border: 1px solid var(--gear-fog);
+}
+
+.gear-summary-item__name {
+  font-family: var(--gear-font-heading);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gear-alpine);
+  margin-bottom: 0.15rem;
+}
+
+.gear-voucher__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.85rem 0;
+  border: 0;
+  border-bottom: 1px solid var(--gear-fog);
+  background: none;
+  font-family: var(--gear-font-heading);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gear-alpine);
+}
+
+/* Bootstrap keeps aria-expanded current, so no JS class is needed. */
+.gear-voucher__toggle .bi {
+  transition: transform 0.2s ease;
+}
+
+.gear-voucher__toggle[aria-expanded="true"] .bi {
+  transform: rotate(180deg);
+}
+
+.gear-delivery-notice {
+  margin-top: 1rem;
+  margin-bottom: 0;
+  padding: 0.75rem 1rem;
+  border-left: 4px solid var(--gear-alpine);
+  background-color: var(--gear-snow);
+  font-size: 0.9rem;
+}
+
+.gear-delivery-notice.is-earned {
+  border-left-color: var(--gear-success);
+  color: var(--gear-success);
+  font-weight: 600;
+}
+
+/* Visual half only: js/pages/payment.js sets `disabled`, which is what
+   removes these from the tab order and from validation. */
+.gear-payment-fields.is-disabled {
+  opacity: 0.45;
+}
+
+.gear-paypal-mark {
+  font-family: var(--gear-font-heading);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--gear-alpine);
+  white-space: nowrap;
+}

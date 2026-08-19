@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Payment options | Aotearoa Adventure Gear</title>
+  <meta name="description" content="Choose a payment method and complete your Aotearoa Adventure Gear order.">
+
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+
+  <!-- Vendor stylesheets, held locally so the site runs with no web server. -->
+  <link rel="stylesheet" href="css/third_party/bootstrap.min.css">
+  <link rel="stylesheet" href="css/third_party/bootstrap-icons.css">
+
+  <!-- Custom stylesheets, after the framework so they win on equal specificity. -->
+  <link rel="stylesheet" href="css/custom-theme.css">
+  <link rel="stylesheet" href="css/custom-layout.css">
+  <link rel="stylesheet" href="css/custom-nav.css">
+  <link rel="stylesheet" href="css/custom-checkout.css">
+  <link rel="stylesheet" href="css/custom-forms.css">
+</head>
+
+<!-- data-x-data puts the whole page in Alpine's scope, so any element
+     below can read $store. See js/services/alpine.js. -->
+<body data-x-data>
+  <!-- First focusable element, so a keyboard user can skip the navigation. -->
+  <a class="gear-skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="gear-masthead">
+    <nav class="navbar navbar-expand-lg container-xxl" aria-label="Primary">
+      <a class="navbar-brand gear-brand" href="index.html">
+        <img src="images/logo-aotearoa-adventure-gear.png" alt="Aotearoa Adventure Gear - home">
+      </a>
+
+      <!-- Outside the collapse on purpose: a shopper on a phone must be able to
+           see the cart and its count without opening the menu first. -->
+      <div class="d-flex align-items-center order-lg-last ms-auto ms-lg-3">
+        <a class="btn gear-cart-button" href="cart.html">
+          <i class="bi bi-cart-fill" aria-hidden="true"></i>Your Cart
+          <!-- Hidden at zero, so an empty badge leaves the accessibility tree
+               rather than just the screen. data-x-cloak keeps the placeholder
+               out of sight until Alpine fills it in. -->
+          <span class="gear-cart-button__badge" data-cart-count data-x-cloak
+                data-x-show="$store.cart.totals.count> 0"
+                data-x-text="$store.cart.totals.count">0</span>
+          <span class="visually-hidden" data-cart-label
+                data-x-text="$store.cart.totals.count === 1
+                               ? '1 item in cart'
+                               : $store.cart.totals.count + ' items in cart'">0 items in cart</span>
+        </a>
+
+        <button class="navbar-toggler border-0 ms-2" type="button" data-bs-toggle="collapse"
+                data-bs-target="#primary-nav" aria-controls="primary-nav"
+                aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+
+      <!-- ms-lg-auto right-aligns these. Without it only the home page lines up,
+           because its search box is flex-grow-1 and does the pushing. -->
+      <div class="collapse navbar-collapse flex-grow-0 ms-lg-auto" id="primary-nav">
+        <ul class="navbar-nav gear-nav align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="shop.html" aria-current="page">Shop</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#newsletter">Help</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+<main id="main-content">
+  <nav class="gear-steps" aria-label="Checkout progress">
+    <div class="container-xxl">
+      <ol class="gear-steps__list">
+        <li
+          class="gear-step gear-step--done"
+>
+          <a href="cart.html">
+            <span class="gear-step__number">1.</span>
+            Shopping Cart
+          </a>
+        </li>
+        <li
+          class="gear-step gear-step--done"
+>
+          <a href="shipping.html">
+            <span class="gear-step__number">2.</span>
+            Shipping Details
+          </a>
+        </li>
+        <li class="gear-step gear-step--current">
+          <a href="payment.html" aria-current="step">
+            <span class="gear-step__number">3.</span>
+            Payment Options
+          </a>
+        </li>
+      </ol>
+    </div>
+  </nav>
+
+  <section class="gear-section" aria-labelledby="payment-heading">
+    <div class="container-xxl">
+      <div class="row g-4">
+        <div class="col-12 col-lg-8">
+          <h1 class="gear-display" id="payment-heading">Payment method</h1>
+          <hr>
+
+          <form
+            data-validate="payment"
+            data-success-message="Payment details accepted - this demo stops here."
+>
+            <div class="gear-error-summary" data-error-summary role="alert" hidden></div>
+
+            <div class="gear-option-card gear-option-card--panel">
+              <div class="d-flex gap-3">
+                <input class="form-check-input mt-1" type="radio" name="payment"
+                       id="pay-card" value="card" checked data-payment-method>
+                <label for="pay-card">
+                  <span class="gear-option-card__title d-block">Credit Card</span>
+                  <span class="gear-option-card__meta d-block">
+                    Visa, Mastercard and American Express. Processed securely at checkout.
+                  </span>
+                </label>
+              </div>
+
+              <!-- disabled while PayPal is selected, so unused fields do not validate -->
+              <div class="row g-3 mt-2 gear-payment-fields" data-payment-fields>
+                <div class="col-12 col-md-6">
+                  <label class="form-label" for="card-number">Card number</label>
+                  <div class="input-group">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="card-number"
+                      name="cardNumber"
+                      placeholder="0000 0000 0000 0000"
+                      required
+                      inputmode="numeric"
+                      autocomplete="cc-number"
+                      maxlength="23"
+                      data-rule="cardNumber"
+                      aria-describedby="card-number-error"
+                      data-error-required="Enter the card number.">
+                    <span class="input-group-text" data-payment-brand aria-hidden="true">
+                      <i class="bi bi-credit-card"></i>
+                    </span>
+                  </div>
+                  <p class="invalid-feedback d-block mb-0" id="card-number-error" role="alert"></p>
+                </div>
+
+                <div class="col-6 col-md-3">
+                  <label class="form-label" for="card-expiry">Expiry</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="card-expiry"
+                    name="cardExpiry"
+                    placeholder="MM / YY"
+                    required
+                    inputmode="numeric"
+                    autocomplete="cc-exp"
+                    maxlength="7"
+                    data-rule="cardExpiry"
+                    aria-describedby="card-expiry-error"
+                    data-error-required="Enter the expiry date.">
+                  <p class="invalid-feedback" id="card-expiry-error" role="alert"></p>
+                </div>
+
+                <div class="col-6 col-md-3">
+                  <div class="d-flex align-items-center gap-1">
+                    <label class="form-label mb-0" for="card-cvv">CVV</label>
+                    <button type="button" class="gear-info-button" data-bs-toggle="tooltip"
+                            data-bs-title="The 3-digit code on the back of the card, or 4 digits on the front for American Express."
+                            aria-label="What is a CVV?">
+                      <i class="bi bi-info-circle" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="card-cvv"
+                    name="cardCvv"
+                    placeholder="CVV"
+                    required
+                    inputmode="numeric"
+                    autocomplete="cc-csc"
+                    maxlength="4"
+                    data-rule="cardCvv"
+                    aria-describedby="card-cvv-error"
+                    data-error-required="Enter the security code.">
+                  <p class="invalid-feedback" id="card-cvv-error" role="alert"></p>
+                </div>
+
+                <div class="col-12">
+                  <label class="form-label" for="card-holder">Card holder name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="card-holder"
+                    name="cardHolder"
+                    placeholder="Card Holder Name"
+                    required
+                    autocomplete="cc-name"
+                    maxlength="80"
+                    data-rule="cardHolder"
+                    aria-describedby="card-holder-error"
+                    data-error-required="Enter the name printed on the card.">
+                  <p class="invalid-feedback" id="card-holder-error" role="alert"></p>
+                </div>
+              </div>
+            </div>
+
+            <div class="gear-option-card gear-option-card--panel mt-3">
+              <div class="d-flex gap-3 align-items-center">
+                <input class="form-check-input" type="radio" name="payment"
+                       id="pay-paypal" value="paypal" data-payment-method>
+                <label class="flex-grow-1" for="pay-paypal">
+                  <span class="gear-option-card__title d-block">PayPal</span>
+                  <span class="gear-option-card__meta d-block">
+                    You will be redirected to PayPal to approve the payment.
+                  </span>
+                </label>
+                <span class="gear-paypal-mark" aria-hidden="true">
+                  <i class="bi bi-paypal"></i> PayPal
+                </span>
+              </div>
+            </div>
+
+            <hr class="mt-4">
+
+            <div class="d-flex flex-wrap gap-2">
+              <button type="submit" class="btn btn-primary">Pay Now</button>
+              <a class="btn btn-cancel" href="shipping.html">Cancel</a>
+            </div>
+            <p class="gear-form-status" data-form-status role="status"></p>
+          </form>
+        </div>
+
+        <aside class="col-12 col-lg-4" aria-labelledby="summary-heading">
+          <h2 class="gear-display gear-summary__heading" id="summary-heading">Summary</h2>
+          <hr class="gear-summary__rule">
+
+          <ul class="gear-summary__list list-unstyled">
+            <template data-x-for="line in $store.cart.lines">
+              <li class="gear-summary-item">
+                <img src="images/placeholder-product.svg" alt="" data-x-effect="$el.src = line.image"
+                     onerror="this.onerror=null;this.src='images/placeholder-product.svg'">
+                <div>
+                  <p class="gear-summary-item__name" data-x-text="line.name">Product name</p>
+                  <p class="gear-price mb-0" data-x-text="line.summaryLine">1 x $0.00</p>
+                </div>
+              </li>
+            </template>
+          </ul>
+
+          <div class="gear-voucher">
+            <button
+              class="gear-voucher__toggle"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#voucher-panel"
+              aria-expanded="false"
+              aria-controls="voucher-panel"
+>
+              <span>Have a voucher?</span>
+              <i class="bi bi-chevron-down" aria-hidden="true"></i>
+            </button>
+            <div class="collapse" id="voucher-panel">
+              <form class="pt-3" data-validate="coupon">
+                <label class="visually-hidden" for="voucher-code">Voucher code</label>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="voucher-code"
+                    name="coupon"
+                    maxlength="12"
+                    autocomplete="off"
+                    placeholder="Voucher code"
+                    data-rule="couponFormat"
+                    aria-describedby="voucher-code-error">
+                  <button class="btn btn-outline-primary" type="submit">Apply</button>
+                </div>
+                <p class="invalid-feedback d-block mb-0" id="voucher-code-error" role="alert"></p>
+                <p class="gear-form-status" data-form-status role="status"></p>
+              </form>
+            </div>
+          </div>
+
+          <!-- aria-live: totals move when quantity, coupon or delivery changes -->
+          <dl class="gear-summary__totals" aria-live="polite">
+            <div class="gear-summary__row">
+              <dt>Subtotal</dt>
+              <dd data-summary-subtotal data-x-text="$money($store.cart.totals.subtotal)">$0.00</dd>
+            </div>
+            <div class="gear-summary__row" data-summary-discount-row data-x-cloak
+                 data-x-show="$store.cart.totals.discount> 0">
+              <dt>
+                Discount
+                <span data-x-text="$store.cart.couponLabel"></span>
+              </dt>
+              <dd data-summary-discount data-x-text="'-' + $money($store.cart.totals.discount)">$0.00</dd>
+            </div>
+            <div class="gear-summary__row">
+              <dt>Shipping</dt>
+              <dd data-summary-shipping data-x-text="$store.cart.shippingLabel"
+                    data-x-effect="$el.classList.toggle('is-free', $store.cart.totals.shipping === 0)">$0.00</dd>
+            </div>
+            <div class="gear-summary__row gear-summary__row--total">
+              <dt>Total</dt>
+              <dd data-summary-total data-x-text="$money($store.cart.totals.total)">$0.00</dd>
+            </div>
+
+            <!-- NZ prices are advertised GST-inclusive, so this reports the GST
+                 already contained in the total rather than adding to it. -->
+            <div class="gear-summary__row gear-summary__row--note">
+              <dt>Includes GST (15%)</dt>
+              <dd data-summary-gst data-x-text="$money($store.cart.totals.gst)">$0.00</dd>
+            </div>
+          </dl>
+        </aside>
+      </div>
+    </div>
+  </section>
+</main>
+
+
+  <footer class="gear-footer">
+    <div class="container-xxl">
+      <nav aria-label="Footer">
+        <ul class="gear-footer__nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="index.html#newsletter">Help</a></li>
+        </ul>
+      </nav>
+      <p class="gear-footer__base text-center mb-0">
+        <i class="bi bi-c-circle" aria-hidden="true"></i>
+        <span data-current-year>2025</span>
+        Aotearoa Adventure Gear
+      </p>
+    </div>
+  </footer>
+
+  <!-- Classic scripts sharing one global scope; ES modules cannot be fetched
+       over file://. Load order matters - see BASE_JS in pages.py. -->
+  <script src="js/third_party/bootstrap.bundle.min.js"></script>
+  <script src="js/services/config.js"></script>
+  <script src="js/services/dom.js"></script>
+  <script src="js/services/events.js"></script>
+  <script src="js/services/money.js"></script>
+  <script src="js/services/storage.js"></script>
+  <script src="js/services/products.js"></script>
+  <script src="js/services/cart.js"></script>
+  <script src="js/services/validation-rules.js"></script>
+  <script src="js/services/validation.js"></script>
+  <script src="js/services/alpine.js"></script>
+  <script src="js/components/stars.js"></script>
+  <script src="js/components/site-header.js"></script>
+  <script src="js/third_party/alpine.min.js"></script>
+  <script src="js/pages/checkout.js"></script>
+  <script src="js/pages/payment.js"></script>
+</body>
+</html>

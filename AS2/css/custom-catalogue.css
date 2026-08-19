@@ -1,0 +1,98 @@
+.gear-shop-search {
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 992px) {
+  .gear-shop-intro {
+    position: sticky;
+    top: 1.5rem;
+  }
+}
+
+.gear-product-detail {
+  border-bottom: 1px solid var(--gear-fog);
+}
+
+.gear-product-detail__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--gear-snow);
+  padding: 3rem;
+  min-height: 320px;
+}
+
+.gear-product-detail__image {
+  max-width: 100%;
+  height: auto;
+}
+
+.gear-product-detail__body {
+  padding: 3rem;
+}
+
+.gear-product-detail__price {
+  font-size: 2rem;
+}
+
+@media (max-width: 767.98px) {
+  .gear-product-detail__media,
+  .gear-product-detail__body {
+    padding: 2rem 1.25rem;
+  }
+}
+
+.gear-review {
+  display: grid;
+  grid-template-columns: 56px 200px 1fr;
+  gap: 1.5rem;
+  padding-block: 1.75rem;
+}
+
+.gear-review + .gear-review {
+  border-top: 1px solid var(--gear-fog);
+}
+
+.gear-review__avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border: 1px solid var(--gear-fog);
+  border-radius: 50%;
+  color: var(--gear-mist);
+  font-size: 1.5rem;
+}
+
+.gear-review__author {
+  font-family: var(--gear-font-heading);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gear-ink);
+  margin-bottom: 0.2rem;
+}
+
+.gear-review__date {
+  font-size: 0.85rem;
+  color: var(--gear-alpine);
+  margin-bottom: 0.35rem;
+}
+
+.gear-review__body {
+  color: var(--gear-ink-muted);
+  margin-bottom: 0;
+}
+
+@media (max-width: 767.98px) {
+  .gear-review {
+    grid-template-columns: 56px 1fr;
+    gap: 1rem;
+  }
+
+  .gear-review__body {
+    grid-column: 2;
+  }
+}

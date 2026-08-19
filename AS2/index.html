@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aotearoa Adventure Gear | Premium outdoor equipment, New Zealand</title>
+  <meta name="description" content="Premium outdoor equipment for New Zealand adventurers - packs, shelter, apparel and safety gear tested in the Southern Alps.">
+
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+
+  <!-- Vendor stylesheets, held locally so the site runs with no web server. -->
+  <link rel="stylesheet" href="css/third_party/bootstrap.min.css">
+  <link rel="stylesheet" href="css/third_party/bootstrap-icons.css">
+
+  <!-- Custom stylesheets, after the framework so they win on equal specificity. -->
+  <link rel="stylesheet" href="css/custom-theme.css">
+  <link rel="stylesheet" href="css/custom-layout.css">
+  <link rel="stylesheet" href="css/custom-nav.css">
+  <link rel="stylesheet" href="css/custom-components.css">
+  <link rel="stylesheet" href="css/custom-home.css">
+  <link rel="stylesheet" href="css/custom-forms.css">
+</head>
+
+<!-- data-x-data puts the whole page in Alpine's scope, so any element
+     below can read $store. See js/services/alpine.js. -->
+<body data-x-data>
+  <!-- First focusable element, so a keyboard user can skip the navigation. -->
+  <a class="gear-skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="gear-masthead">
+    <nav class="navbar navbar-expand-lg container-xxl" aria-label="Primary">
+      <a class="navbar-brand gear-brand" href="index.html">
+        <img src="images/logo-aotearoa-adventure-gear.png" alt="Aotearoa Adventure Gear - home">
+      </a>
+
+      <form class="gear-header-search d-none d-lg-block ms-3 flex-grow-1"
+            role="search" action="shop.html" method="get"
+            data-validate="header-search">
+        <label class="visually-hidden" for="header-search">Search products</label>
+        <div class="input-group">
+          <span class="input-group-text" aria-hidden="true"><i class="bi bi-search"></i></span>
+          <input type="search" class="form-control" id="header-search" name="q"
+                 placeholder="Search&hellip;" maxlength="60" autocomplete="off"
+                 data-rule="safeText" aria-describedby="header-search-error">
+          <!-- A form needs a real submit control, not just Enter-to-submit.
+               Hidden because the wireframe shows only the field; still keyboard
+               reachable. https://www.w3.org/WAI/WCAG21/Techniques/html/H32 -->
+          <button type="submit" class="visually-hidden">Search</button>
+        </div>
+        <p class="invalid-feedback d-block mb-0" id="header-search-error" role="alert"></p>
+      </form>
+
+      <!-- Outside the collapse on purpose: a shopper on a phone must be able to
+           see the cart and its count without opening the menu first. -->
+      <div class="d-flex align-items-center order-lg-last ms-auto ms-lg-3">
+        <a class="btn gear-cart-button" href="cart.html">
+          <i class="bi bi-cart-fill" aria-hidden="true"></i>Your Cart
+          <!-- Hidden at zero, so an empty badge leaves the accessibility tree
+               rather than just the screen. data-x-cloak keeps the placeholder
+               out of sight until Alpine fills it in. -->
+          <span class="gear-cart-button__badge" data-cart-count data-x-cloak
+                data-x-show="$store.cart.totals.count> 0"
+                data-x-text="$store.cart.totals.count">0</span>
+          <span class="visually-hidden" data-cart-label
+                data-x-text="$store.cart.totals.count === 1
+                               ? '1 item in cart'
+                               : $store.cart.totals.count + ' items in cart'">0 items in cart</span>
+        </a>
+
+        <button class="navbar-toggler border-0 ms-2" type="button" data-bs-toggle="collapse"
+                data-bs-target="#primary-nav" aria-controls="primary-nav"
+                aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+
+      <!-- ms-lg-auto right-aligns these. Without it only the home page lines up,
+           because its search box is flex-grow-1 and does the pushing. -->
+      <div class="collapse navbar-collapse flex-grow-0 ms-lg-auto" id="primary-nav">
+        <ul class="navbar-nav gear-nav align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="index.html" aria-current="page">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="shop.html">Shop</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#newsletter">Help</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+<main id="main-content">
+  <!-- The whole section is the sentinel, not a marker at its foot: on a
+       phone the hero is taller than the viewport, so a foot marker would
+       start below the fold and the anchor would appear immediately. -->
+  <section class="gear-section gear-hero text-center" aria-labelledby="hero-heading"
+           data-anchor-sentinel>
+    <div class="container-xxl">
+      <h1 class="gear-display gear-hero__tagline" id="hero-heading">
+        Gear tested where Aotearoa is wildest
+      </h1>
+      <hr class="gear-rule">
+
+      <div class="row justify-content-center g-3 g-md-4 gear-hero__tiles">
+        <div class="col-10 col-sm-4 col-md-3">
+          <img
+            class="gear-tile"
+            src="images/placeholder-product.svg"
+            alt="Alpine ranges at dawn">
+        </div>
+        <div class="col-10 col-sm-4 col-md-3">
+          <img
+            class="gear-tile"
+            src="images/placeholder-product.svg"
+            alt="A tent pitched above the bushline">
+        </div>
+        <div class="col-10 col-sm-4 col-md-3">
+          <img
+            class="gear-tile"
+            src="images/placeholder-product.svg"
+            alt="A tramper on a river trail">
+        </div>
+      </div>
+
+      <a class="btn btn-primary mt-4" href="shop.html">Shop Now</a>
+    </div>
+
+  </section>
+
+  <section class="gear-section gear-section--tint" id="featured" aria-labelledby="featured-heading">
+    <div class="container-xxl">
+      <h2 class="gear-display text-center mb-5" id="featured-heading">Featured Products</h2>
+
+      <div
+        id="featured-carousel"
+        class="carousel slide gear-carousel"
+        data-bs-ride="carousel"
+        data-bs-interval="6000"
+        data-bs-pause="hover"
+>
+        <!-- slides built by js/pages/home.js: two per slide from lg, one below -->
+        <div class="carousel-inner" data-carousel-track></div>
+        <div class="carousel-indicators" data-carousel-indicators></div>
+
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#featured-carousel"
+          data-bs-slide="prev"
+>
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous featured products</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#featured-carousel"
+          data-bs-slide="next"
+>
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next featured products</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="gear-section" id="newsletter" aria-labelledby="newsletter-heading">
+    <div class="container-xxl">
+      <div class="row align-items-center g-4">
+        <div class="col-12 col-lg-5">
+          <h2 class="gear-display" id="newsletter-heading">Newsletter</h2>
+          <p class="gear-muted mb-0">
+            Trip reports, gear notes and first access to new arrivals. Sent monthly, never shared,
+            unsubscribe in one click.
+          </p>
+        </div>
+        <div class="col-12 col-lg-7"><!-- Native validation is left on here. js/services/validation.js sets
+     noValidate once it loads, so a form still validates without JavaScript. -->
+<form
+  class="row g-2 justify-content-lg-end"
+  data-validate="newsletter"
+  data-success-message="Thanks - check your inbox to confirm."
+>
+  <div class="col-12 col-sm-7">
+    <label class="visually-hidden" for="newsletter-email">Email address</label>
+    <input
+      type="email"
+      class="form-control"
+      id="newsletter-email"
+      name="email"
+      placeholder="Email Address"
+      required
+      autocomplete="email"
+      maxlength="254"
+      data-rule="email"
+      aria-describedby="newsletter-email-error">
+    <p class="invalid-feedback" id="newsletter-email-error" role="alert"></p>
+  </div>
+  <div class="col-12 col-sm-auto">
+    <button type="submit" class="btn btn-outline-primary w-100">Subscribe</button>
+  </div>
+  <div class="col-12">
+    <p class="gear-form-status" data-form-status role="status"></p>
+  </div>
+</form></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="gear-section gear-section--tint" id="products" aria-labelledby="products-heading">
+    <div class="container-xxl">
+      <h2 class="visually-hidden" id="products-heading">Our range</h2>
+      <div class="row g-4">
+        <!-- One large tile beside four smaller ones, per the wireframe. -->
+        <div class="col-12 col-lg-5">
+          <!-- Stacked product card. Parameters:
+                 collection  Alpine expression yielding an array of products
+                 columns     grid classes for the wrapper column
+                 modifier    extra class on the card -->
+          <template data-x-for="product in $store.catalogue.homeFeature">
+            <div class="col-12">
+              <article class="gear-product-card h-100 gear-product-card--feature">
+                <a class="gear-product-card__media"
+                   data-x-effect="$el.href = $store.catalogue.productHref(product)">
+                  <img class="gear-tile" src="images/placeholder-product.svg" alt="" loading="lazy"
+                       onerror="this.onerror=null;this.src='images/placeholder-product.svg'"
+                       data-x-effect="$el.src = product.image; $el.alt = product.name">
+                </a>
+                <div class="gear-product-card__body">
+                  <h3 class="gear-label gear-product-card__name">
+                    <a data-x-text="product.name"
+                       data-x-effect="$el.href = $store.catalogue.productHref(product)">Product name</a>
+                  </h3>
+                  <div class="gear-stars"
+                       data-x-effect="Store.ui.renderStars($el, product.rating, product.reviewCount)"></div>
+                  <p class="gear-price gear-product-card__price" data-x-text="$money(product.price)">$0.00</p>
+                </div>
+              </article>
+            </div>
+          </template>
+        </div>
+
+        <div class="col-12 col-lg-7">
+          <div class="row g-4">
+            <!-- Stacked product card. Parameters:
+                   collection  Alpine expression yielding an array of products
+                   columns     grid classes for the wrapper column
+                   modifier    extra class on the card -->
+            <template data-x-for="product in $store.catalogue.homeGrid">
+              <div class="col-12 col-sm-6">
+                <article class="gear-product-card h-100">
+                  <a class="gear-product-card__media"
+                     data-x-effect="$el.href = $store.catalogue.productHref(product)">
+                    <img class="gear-tile" src="images/placeholder-product.svg" alt="" loading="lazy"
+                         onerror="this.onerror=null;this.src='images/placeholder-product.svg'"
+                         data-x-effect="$el.src = product.image; $el.alt = product.name">
+                  </a>
+                  <div class="gear-product-card__body">
+                    <h3 class="gear-label gear-product-card__name">
+                      <a data-x-text="product.name"
+                         data-x-effect="$el.href = $store.catalogue.productHref(product)">Product name</a>
+                    </h3>
+                    <div class="gear-stars"
+                         data-x-effect="Store.ui.renderStars($el, product.rating, product.reviewCount)"></div>
+                    <p class="gear-price gear-product-card__price" data-x-text="$money(product.price)">$0.00</p>
+                  </div>
+                </article>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="gear-section text-center" id="about" aria-labelledby="about-heading">
+    <div class="container-xxl">
+      <h2 class="gear-display" id="about-heading">About Aotearoa Adventure Gear</h2>
+      <p class="gear-muted mx-auto gear-about__copy">
+        We are a small crew of trampers, climbers and packrafters based in &#332;tautahi
+        Christchurch. Every item we stock is carried, pitched, soaked and repaired somewhere in this
+        country before it reaches the shelf - if it cannot handle a Southern Alps nor'wester, we do
+        not sell it.
+      </p>
+    </div>
+  </section>
+</main>
+
+  <!-- The only list still built in JavaScript: Bootstrap moves one slide at
+       a time, so two products per slide means grouping them, and the
+       grouping changes with the breakpoint. -->
+  <template id="tpl-carousel-figure">
+    <div class="col">
+      <figure class="mb-0">
+        <a data-carousel-link>
+          <img class="gear-tile gear-carousel__image" src="images/placeholder-product.svg" alt=""
+               data-carousel-image>
+        </a>
+        <figcaption class="text-center mt-3">
+          <p class="gear-label mb-1" data-carousel-name>Product name</p>
+          <p class="gear-price mb-0" data-carousel-price>$0.00</p>
+        </figcaption>
+      </figure>
+    </div>
+  </template>
+
+  <footer class="gear-footer">
+    <div class="container-xxl">
+      <div class="row g-4">
+        <div class="col-12 col-lg-4">
+          <img src="images/logo-aotearoa-adventure-gear.png" alt="Aotearoa Adventure Gear">
+          <address class="mt-3">
+            128 Colombo Street
+            <br>
+            Sydenham, &#332;tautahi Christchurch 8023
+            <br>
+            Aotearoa New Zealand
+          </address>
+        </div>
+
+        <nav class="col-6 col-md-3 col-lg-2" aria-labelledby="footer-main">
+          <h2 id="footer-main">Main menu</h2>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="index.html#newsletter">Help</a></li>
+          </ul>
+        </nav>
+
+        <nav class="col-6 col-md-3 col-lg-2" aria-labelledby="footer-company">
+          <h2 id="footer-company">Company</h2>
+          <ul>
+            <li><a href="index.html#about">The Company</a></li>
+            <li><a href="index.html#about">Careers</a></li>
+            <li><a href="index.html#about">Press</a></li>
+          </ul>
+        </nav>
+
+        <nav class="col-6 col-md-3 col-lg-2" aria-labelledby="footer-discover">
+          <h2 id="footer-discover">Discover</h2>
+          <ul>
+            <li><a href="index.html#about">The Team</a></li>
+            <li><a href="index.html#about">Our History</a></li>
+            <li><a href="index.html#about">Brand Motto</a></li>
+          </ul>
+        </nav>
+
+        <nav class="col-6 col-md-3 col-lg-2" aria-labelledby="footer-social">
+          <h2 id="footer-social">Find us on</h2>
+          <ul>
+            <li>
+              <a href="index.html#about">
+                <i class="bi bi-facebook" aria-hidden="true"></i>
+                Facebook
+              </a>
+            </li>
+            <li>
+              <a href="index.html#about">
+                <i class="bi bi-twitter-x" aria-hidden="true"></i>
+                Twitter
+              </a>
+            </li>
+            <li>
+              <a href="index.html#about">
+                <i class="bi bi-instagram" aria-hidden="true"></i>
+                Instagram
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <p class="gear-footer__base text-center mb-0">
+        <i class="bi bi-c-circle" aria-hidden="true"></i>
+        <span data-current-year>2025</span>
+        Aotearoa Adventure Gear
+      </p>
+    </div>
+  </footer>
+
+
+
+  <div class="gear-anchor" data-anchor>
+    <ul class="gear-anchor__menu" data-anchor-menu hidden>
+      <li><a href="#featured">Featured products</a></li>
+      <li><a href="#newsletter">Newsletter</a></li>
+      <li><a href="#products">Our range</a></li>
+      <li><a href="#about">About us</a></li>
+      <li><a href="#main-content">Back to top</a></li>
+    </ul>
+    <button
+      class="gear-anchor__toggle"
+      type="button"
+      data-anchor-toggle
+      aria-expanded="false"
+      aria-label="Jump to a section"
+>
+      <i class="bi bi-compass" aria-hidden="true"></i>
+    </button>
+  </div>
+
+  <!-- Classic scripts sharing one global scope; ES modules cannot be fetched
+       over file://. Load order matters - see BASE_JS in pages.py. -->
+  <script src="js/third_party/bootstrap.bundle.min.js"></script>
+  <script src="js/services/config.js"></script>
+  <script src="js/services/dom.js"></script>
+  <script src="js/services/events.js"></script>
+  <script src="js/services/money.js"></script>
+  <script src="js/services/storage.js"></script>
+  <script src="js/services/products.js"></script>
+  <script src="js/services/cart.js"></script>
+  <script src="js/services/validation-rules.js"></script>
+  <script src="js/services/validation.js"></script>
+  <script src="js/services/alpine.js"></script>
+  <script src="js/components/stars.js"></script>
+  <script src="js/components/site-header.js"></script>
+  <script src="js/third_party/alpine.min.js"></script>
+  <script src="js/components/floating-anchor.js"></script>
+  <script src="js/pages/home.js"></script>
+</body>
+</html>

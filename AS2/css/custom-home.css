@@ -1,0 +1,74 @@
+.gear-hero {
+  padding-block: 4.5rem 4rem;
+}
+
+.gear-hero__tagline {
+  max-width: 22ch;
+  margin-inline: auto;
+}
+
+/* Square in the wireframe, unlike the 4:3 product tiles. */
+.gear-hero__tiles .gear-tile {
+  aspect-ratio: 1 / 1;
+}
+
+.gear-carousel {
+  padding-inline: 3rem; /* room for the prev/next controls beside the slides */
+}
+
+.gear-carousel__image {
+  aspect-ratio: 16 / 10;
+}
+
+/* Bootstrap's white control icons vanish on the pale band. */
+.gear-carousel .carousel-control-prev,
+.gear-carousel .carousel-control-next {
+  width: 3rem;
+  opacity: 1;
+  color: var(--gear-pine);
+}
+
+.gear-carousel .carousel-control-prev {
+  left: -0.5rem;
+}
+
+.gear-carousel .carousel-control-next {
+  right: -0.5rem;
+}
+
+.gear-carousel .carousel-control-prev-icon,
+.gear-carousel .carousel-control-next-icon {
+  /* filter is the only way to recolour Bootstrap's embedded SVG data-URI icons
+   without replacing the background-image outright. */
+
+  filter: invert(24%) sepia(9%) saturate(1350%) hue-rotate(135deg) brightness(95%);
+}
+
+.gear-carousel .carousel-indicators {
+  position: static;
+  margin: 2rem 0 0;
+}
+
+.gear-carousel .carousel-indicators [data-bs-target] {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 0;
+  background-color: var(--gear-mist);
+  opacity: 1;
+}
+
+.gear-carousel .carousel-indicators .active {
+  background-color: var(--gear-pine);
+}
+
+@media (max-width: 575.98px) {
+  .gear-carousel {
+    padding-inline: 2rem;
+  }
+}
+
+.gear-about__copy {
+  max-width: 62ch;
+  margin-top: 1.25rem;
+}

@@ -1,0 +1,7 @@
+# Word writes a lock file beside any document it has open.
+~$*
+
+.DS_Store
+Thumbs.db
+desktop.ini
+*.docx

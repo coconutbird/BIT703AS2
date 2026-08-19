@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shop | Aotearoa Adventure Gear</title>
+  <meta name="description" content="Browse packs, shelter, apparel, footwear and safety gear from Aotearoa Adventure Gear.">
+
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+
+  <!-- Vendor stylesheets, held locally so the site runs with no web server. -->
+  <link rel="stylesheet" href="css/third_party/bootstrap.min.css">
+  <link rel="stylesheet" href="css/third_party/bootstrap-icons.css">
+
+  <!-- Custom stylesheets, after the framework so they win on equal specificity. -->
+  <link rel="stylesheet" href="css/custom-theme.css">
+  <link rel="stylesheet" href="css/custom-layout.css">
+  <link rel="stylesheet" href="css/custom-nav.css">
+  <link rel="stylesheet" href="css/custom-components.css">
+  <link rel="stylesheet" href="css/custom-catalogue.css">
+  <link rel="stylesheet" href="css/custom-forms.css">
+</head>
+
+<!-- data-x-data puts the whole page in Alpine's scope, so any element
+     below can read $store. See js/services/alpine.js. -->
+<body data-x-data>
+  <!-- First focusable element, so a keyboard user can skip the navigation. -->
+  <a class="gear-skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="gear-masthead">
+    <nav class="navbar navbar-expand-lg container-xxl" aria-label="Primary">
+      <a class="navbar-brand gear-brand" href="index.html">
+        <img src="images/logo-aotearoa-adventure-gear.png" alt="Aotearoa Adventure Gear - home">
+      </a>
+
+      <!-- Outside the collapse on purpose: a shopper on a phone must be able to
+           see the cart and its count without opening the menu first. -->
+      <div class="d-flex align-items-center order-lg-last ms-auto ms-lg-3">
+        <a class="btn gear-cart-button" href="cart.html">
+          <i class="bi bi-cart-fill" aria-hidden="true"></i>Your Cart
+          <!-- Hidden at zero, so an empty badge leaves the accessibility tree
+               rather than just the screen. data-x-cloak keeps the placeholder
+               out of sight until Alpine fills it in. -->
+          <span class="gear-cart-button__badge" data-cart-count data-x-cloak
+                data-x-show="$store.cart.totals.count> 0"
+                data-x-text="$store.cart.totals.count">0</span>
+          <span class="visually-hidden" data-cart-label
+                data-x-text="$store.cart.totals.count === 1
+                               ? '1 item in cart'
+                               : $store.cart.totals.count + ' items in cart'">0 items in cart</span>
+        </a>
+
+        <button class="navbar-toggler border-0 ms-2" type="button" data-bs-toggle="collapse"
+                data-bs-target="#primary-nav" aria-controls="primary-nav"
+                aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+
+      <!-- ms-lg-auto right-aligns these. Without it only the home page lines up,
+           because its search box is flex-grow-1 and does the pushing. -->
+      <div class="collapse navbar-collapse flex-grow-0 ms-lg-auto" id="primary-nav">
+        <ul class="navbar-nav gear-nav align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="shop.html" aria-current="page">Shop</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#newsletter">Help</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+<main id="main-content">
+  <section class="gear-section gear-section--tint text-center" aria-labelledby="shop-heading">
+    <div class="container-xxl">
+      <h1 class="gear-display" id="shop-heading">Gear tested where Aotearoa is wildest</h1>
+      <hr class="gear-rule">
+
+      <!-- filters the grid live; still submits normally if JS is unavailable -->
+      <form
+        class="row g-2 justify-content-center gear-shop-search"
+        role="search"
+        data-validate="shop-search"
+>
+        <div class="col-12 col-sm-7 col-lg-5">
+          <label class="visually-hidden" for="shop-search-input">Search products</label>
+          <div class="input-group">
+            <span class="input-group-text" aria-hidden="true"><i class="bi bi-search"></i></span>
+            <input
+              type="search"
+              class="form-control"
+              id="shop-search-input"
+              name="q"
+              placeholder="Search&hellip;"
+              maxlength="60"
+              autocomplete="off"
+              data-rule="safeText"
+              data-shop-search
+              aria-describedby="shop-search-error">
+          </div>
+          <p class="invalid-feedback d-block mb-0" id="shop-search-error" role="alert"></p>
+        </div>
+        <div class="col-12 col-sm-auto">
+          <button type="submit" class="btn btn-primary w-100">Submit</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="gear-section text-center" aria-labelledby="categories-heading">
+    <div class="container-xxl">
+      <h2 class="gear-display" id="categories-heading">Featured Categories</h2>
+      <p class="gear-muted mx-auto gear-section__intro">
+        Four decades of Southern Alps testing, distilled into the gear we would carry ourselves.
+      </p>
+      <div class="row g-4 justify-content-center mt-2">
+          <template data-x-for="category in $store.catalogue.categories">
+            <div class="col-6 col-md-3">
+              <a class="gear-category"
+                 data-x-effect="$el.href = $store.catalogue.categoryHref(category)">
+                <img class="gear-category__image" src="images/placeholder-product.svg" alt=""
+                     loading="lazy" onerror="this.onerror=null;this.src='images/placeholder-product.svg'"
+                     data-x-effect="$el.src = category.image; $el.alt = category.name">
+                <p class="gear-category__name" data-x-text="category.name">Category</p>
+              </a>
+            </div>
+          </template>
+
+          <!-- Markup rather than data, so it is authored here. -->
+          <div class="col-6 col-md-3">
+            <a class="gear-cta-tile" href="shop.html">Shop Now</a>
+          </div>
+        </div>
+    </div>
+  </section>
+
+  <section class="gear-section gear-newsletter-band" id="newsletter" aria-labelledby="shop-newsletter-heading">
+    <div class="container-xxl">
+      <div class="row align-items-center g-4">
+        <div class="col-12 col-lg-4 text-center gear-newsletter-band__mark">
+          <img src="images/logo-aotearoa-adventure-gear.png" alt="Aotearoa Adventure Gear">
+        </div>
+        <div class="col-12 col-lg-8">
+          <h2 class="gear-display" id="shop-newsletter-heading">Newsletter</h2>
+          <!-- Native validation is left on here. js/services/validation.js sets
+               noValidate once it loads, so a form still validates without JavaScript. -->
+          <form
+            class="row g-2 justify-content-lg-end"
+            data-validate="newsletter"
+            data-success-message="Thanks - check your inbox to confirm."
+>
+            <div class="col-12 col-sm-7">
+              <label class="visually-hidden" for="shop-newsletter-email">Email address</label>
+              <input
+                type="email"
+                class="form-control"
+                id="shop-newsletter-email"
+                name="email"
+                placeholder="Email Address"
+                required
+                autocomplete="email"
+                maxlength="254"
+                data-rule="email"
+                aria-describedby="shop-newsletter-email-error">
+              <p class="invalid-feedback" id="shop-newsletter-email-error" role="alert"></p>
+            </div>
+            <div class="col-12 col-sm-auto">
+              <button type="submit" class="btn btn-outline-primary w-100">Subscribe</button>
+            </div>
+            <div class="col-12">
+              <p class="gear-form-status" data-form-status role="status"></p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="gear-section" aria-labelledby="listing-heading">
+    <div class="container-xxl">
+      <div class="row g-4">
+        <div class="col-12 col-lg-4">
+          <div class="gear-shop-intro">
+            <h2 class="gear-display" id="listing-heading">Built for the long walk in</h2>
+            <p class="gear-muted">
+              Every item is chosen for load-carrying comfort, weather resistance and field
+              repairability - the three things that decide whether a trip turns back early.
+            </p>
+            <a class="btn btn-primary" href="shop.html">Browse All</a>
+          </div>
+        </div>
+
+        <div class="col-12 col-lg-8">
+          <div class="row g-4" data-shop-grid>
+            <!-- Horizontal product row, as wireframe 02 shows. Parameters:
+                   collection  Alpine expression yielding an array of products
+                   columns     grid classes for the wrapper column -->
+            <template data-x-for="product in $store.catalogue.filtered">
+              <div class="col-12 col-md-6">
+                <article class="gear-product-row">
+                  <a data-x-effect="$el.href = $store.catalogue.productHref(product)">
+                    <img src="images/placeholder-product.svg" alt="" loading="lazy"
+                         onerror="this.onerror=null;this.src='images/placeholder-product.svg'"
+                         data-x-effect="$el.src = product.image; $el.alt = product.name">
+                  </a>
+                  <div>
+                    <h3 class="gear-label mb-1">
+                      <a class="text-decoration-none" data-x-text="product.name"
+                         data-x-effect="$el.href = $store.catalogue.productHref(product)">Product name</a>
+                    </h3>
+                    <div class="gear-stars"
+                         data-x-effect="Store.ui.renderStars($el, product.rating, product.reviewCount)"></div>
+                    <p class="gear-price mb-0" data-x-text="$money(product.price)">$0.00</p>
+                  </div>
+                </article>
+              </div>
+            </template>
+          </div>
+
+          <p class="gear-empty-state" data-shop-empty role="status" data-x-cloak
+             data-x-show="$store.catalogue.noMatches">
+            No products match that search. Try a different term.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+
+  <footer class="gear-footer">
+    <div class="container-xxl">
+      <nav aria-label="Footer">
+        <ul class="gear-footer__nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="index.html#newsletter">Help</a></li>
+        </ul>
+      </nav>
+      <p class="gear-footer__base text-center mb-0">
+        <i class="bi bi-c-circle" aria-hidden="true"></i>
+        <span data-current-year>2025</span>
+        Aotearoa Adventure Gear
+      </p>
+    </div>
+  </footer>
+
+  <!-- Classic scripts sharing one global scope; ES modules cannot be fetched
+       over file://. Load order matters - see BASE_JS in pages.py. -->
+  <script src="js/third_party/bootstrap.bundle.min.js"></script>
+  <script src="js/services/config.js"></script>
+  <script src="js/services/dom.js"></script>
+  <script src="js/services/events.js"></script>
+  <script src="js/services/money.js"></script>
+  <script src="js/services/storage.js"></script>
+  <script src="js/services/products.js"></script>
+  <script src="js/services/cart.js"></script>
+  <script src="js/services/validation-rules.js"></script>
+  <script src="js/services/validation.js"></script>
+  <script src="js/services/alpine.js"></script>
+  <script src="js/components/stars.js"></script>
+  <script src="js/components/site-header.js"></script>
+  <script src="js/third_party/alpine.min.js"></script>
+  <script src="js/pages/shop.js"></script>
+</body>
+</html>

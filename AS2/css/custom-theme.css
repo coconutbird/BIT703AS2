@@ -1,0 +1,213 @@
+/* Self-hosted, not Google Fonts: the site must run with no network. */
+@font-face {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("../fonts/montserrat-latin-300-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/montserrat-latin-400-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/montserrat-latin-600-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/montserrat-latin-700-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/open-sans-latin-400-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/open-sans-latin-600-normal.woff2") format("woff2");
+}
+
+/* Sampled from the supplied logo PNG rather than guessed. */
+:root {
+  --gear-pine: #2f4b4d;
+  --gear-alpine: #4b7692;
+  --gear-mist: #a5bac8;
+  --gear-fog: #cbd2d2;
+  --gear-snow: #f2f4f4; /* section backgrounds (grey bands in wireframes) */
+
+  --gear-ink: #1d2b2c;
+  --gear-ink-muted: #6b7b7c;
+  --gear-pine-dark: #223738;
+  --gear-alert: #b4432e;
+  --gear-success: #3f7d4e;
+
+  --gear-font-heading: "Montserrat", "Segoe UI", system-ui, sans-serif;
+  --gear-font-body: "Open Sans", "Segoe UI", system-ui, sans-serif;
+
+  --gear-section-y: 3.5rem;
+  --gear-radius: 2px;
+}
+
+/* Bootstrap is pre-compiled and there is no Sass step, so it is re-themed
+   through its runtime variables. Page-level ones cascade; component ones
+   like --bs-btn-bg are scoped per class and must be re-declared. */
+:root {
+  --bs-body-font-family: var(--gear-font-body);
+  --bs-body-color: var(--gear-ink);
+  --bs-body-bg: #ffffff;
+  --bs-border-color: var(--gear-fog);
+  --bs-border-radius: var(--gear-radius);
+
+  --bs-primary: var(--gear-pine);
+  --bs-primary-rgb: 47, 75, 77;
+  --bs-secondary: var(--gear-alpine);
+  --bs-secondary-rgb: 75, 118, 146;
+
+  --bs-link-color: var(--gear-alpine);
+  --bs-link-color-rgb: 75, 118, 146;
+  --bs-link-hover-color: var(--gear-pine);
+  --bs-link-hover-color-rgb: 47, 75, 77;
+}
+
+/* Light weight (300) is deliberate - Bootstrap's default is bold. */
+body {
+  font-family: var(--gear-font-body);
+  color: var(--gear-ink);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.gear-display {
+  font-family: var(--gear-font-heading);
+  font-weight: 300;
+  color: var(--gear-pine);
+  letter-spacing: 0.01em;
+}
+
+.gear-display {
+  font-size: clamp(1.75rem, 1.2rem + 2.4vw, 2.75rem);
+  line-height: 1.15;
+}
+
+.gear-label {
+  font-family: var(--gear-font-heading);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gear-alpine);
+}
+
+.gear-muted {
+  color: var(--gear-ink-muted);
+  font-size: 0.9375rem;
+}
+
+.gear-price {
+  font-family: var(--gear-font-heading);
+  font-weight: 400;
+  color: var(--gear-alpine);
+}
+
+.btn {
+  --bs-btn-border-radius: var(--gear-radius);
+  font-family: var(--gear-font-heading);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 0.65rem 1.6rem;
+}
+
+.btn-primary {
+  --bs-btn-bg: var(--gear-pine);
+  --bs-btn-border-color: var(--gear-pine);
+  --bs-btn-hover-bg: var(--gear-pine-dark);
+  --bs-btn-hover-border-color: var(--gear-pine-dark);
+  --bs-btn-active-bg: var(--gear-pine-dark);
+  --bs-btn-active-border-color: var(--gear-pine-dark);
+  --bs-btn-disabled-bg: var(--gear-mist);
+  --bs-btn-disabled-border-color: var(--gear-mist);
+}
+
+.btn-outline-primary {
+  --bs-btn-color: var(--gear-pine);
+  --bs-btn-border-color: var(--gear-pine);
+  --bs-btn-hover-bg: var(--gear-pine);
+  --bs-btn-hover-border-color: var(--gear-pine);
+  --bs-btn-active-bg: var(--gear-pine-dark);
+  --bs-btn-active-border-color: var(--gear-pine-dark);
+}
+
+.btn-cancel {
+  --bs-btn-color: var(--gear-ink-muted);
+  --bs-btn-bg: var(--gear-snow);
+  --bs-btn-border-color: var(--gear-snow);
+  --bs-btn-hover-bg: var(--gear-fog);
+  --bs-btn-hover-border-color: var(--gear-fog);
+  --bs-btn-hover-color: var(--gear-ink);
+}
+
+/* Bootstrap's default focus blue clashes with the palette. */
+:focus-visible {
+  outline: 3px solid var(--gear-alpine);
+  outline-offset: 2px;
+}
+
+.gear-skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 1080;
+  padding: 0.75rem 1.25rem;
+  background: var(--gear-pine);
+  color: #fff;
+  text-decoration: none;
+}
+
+.gear-skip-link:focus {
+  left: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Hidden until Alpine fills the bindings in, or the cart badge flashes
+   its placeholder "0" on load. */
+[data-x-cloak] {
+  display: none !important;
+}

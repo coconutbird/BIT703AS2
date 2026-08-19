@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shipping details | Aotearoa Adventure Gear</title>
+  <meta name="description" content="Enter your delivery address and choose a shipping method.">
+
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+
+  <!-- Vendor stylesheets, held locally so the site runs with no web server. -->
+  <link rel="stylesheet" href="css/third_party/bootstrap.min.css">
+  <link rel="stylesheet" href="css/third_party/bootstrap-icons.css">
+
+  <!-- Custom stylesheets, after the framework so they win on equal specificity. -->
+  <link rel="stylesheet" href="css/custom-theme.css">
+  <link rel="stylesheet" href="css/custom-layout.css">
+  <link rel="stylesheet" href="css/custom-nav.css">
+  <link rel="stylesheet" href="css/custom-checkout.css">
+  <link rel="stylesheet" href="css/custom-forms.css">
+</head>
+
+<!-- data-x-data puts the whole page in Alpine's scope, so any element
+     below can read $store. See js/services/alpine.js. -->
+<body data-x-data>
+  <!-- First focusable element, so a keyboard user can skip the navigation. -->
+  <a class="gear-skip-link" href="#main-content">Skip to main content</a>
+
+  <header class="gear-masthead">
+    <nav class="navbar navbar-expand-lg container-xxl" aria-label="Primary">
+      <a class="navbar-brand gear-brand" href="index.html">
+        <img src="images/logo-aotearoa-adventure-gear.png" alt="Aotearoa Adventure Gear - home">
+      </a>
+
+      <!-- Outside the collapse on purpose: a shopper on a phone must be able to
+           see the cart and its count without opening the menu first. -->
+      <div class="d-flex align-items-center order-lg-last ms-auto ms-lg-3">
+        <a class="btn gear-cart-button" href="cart.html">
+          <i class="bi bi-cart-fill" aria-hidden="true"></i>Your Cart
+          <!-- Hidden at zero, so an empty badge leaves the accessibility tree
+               rather than just the screen. data-x-cloak keeps the placeholder
+               out of sight until Alpine fills it in. -->
+          <span class="gear-cart-button__badge" data-cart-count data-x-cloak
+                data-x-show="$store.cart.totals.count> 0"
+                data-x-text="$store.cart.totals.count">0</span>
+          <span class="visually-hidden" data-cart-label
+                data-x-text="$store.cart.totals.count === 1
+                               ? '1 item in cart'
+                               : $store.cart.totals.count + ' items in cart'">0 items in cart</span>
+        </a>
+
+        <button class="navbar-toggler border-0 ms-2" type="button" data-bs-toggle="collapse"
+                data-bs-target="#primary-nav" aria-controls="primary-nav"
+                aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+
+      <!-- ms-lg-auto right-aligns these. Without it only the home page lines up,
+           because its search box is flex-grow-1 and does the pushing. -->
+      <div class="collapse navbar-collapse flex-grow-0 ms-lg-auto" id="primary-nav">
+        <ul class="navbar-nav gear-nav align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="shop.html" aria-current="page">Shop</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#newsletter">Help</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+<main id="main-content">
+  <nav class="gear-steps" aria-label="Checkout progress">
+    <div class="container-xxl">
+      <ol class="gear-steps__list">
+        <li
+          class="gear-step gear-step--done"
+>
+          <a href="cart.html">
+            <span class="gear-step__number">1.</span>
+            Shopping Cart
+          </a>
+        </li>
+        <li
+          class="gear-step gear-step--current"
+>
+          <a href="shipping.html" aria-current="step">
+            <span class="gear-step__number">2.</span>
+            Shipping Details
+          </a>
+        </li>
+        <li class="gear-step">
+          <a href="payment.html">
+            <span class="gear-step__number">3.</span>
+            Payment Options
+          </a>
+        </li>
+      </ol>
+    </div>
+  </nav>
+
+  <section class="gear-section" aria-labelledby="shipping-heading">
+    <div class="container-xxl">
+      <div class="row g-4">
+        <div class="col-12 col-lg-8">
+          <h1 class="gear-display" id="shipping-heading">Shipping Details</h1>
+          <hr>
+
+          <form
+            data-validate="shipping"
+            data-on-valid="navigate"
+            data-next-page="payment.html"
+>
+            <!-- filled by js/services/validation.js on a failed submit: one link per problem -->
+            <div class="gear-error-summary" data-error-summary role="alert" hidden></div>
+
+            <div class="row g-3">
+              <div class="col-12 col-md-6">
+                <label class="form-label" for="first-name">First name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="first-name"
+                  name="firstName"
+                  placeholder="First Name"
+                  required
+                  autocomplete="given-name"
+                  maxlength="60"
+                  data-rule="personName"
+                  aria-describedby="first-name-error"
+                  data-error-required="Enter your first name.">
+                <p class="invalid-feedback" id="first-name-error" role="alert"></p>
+              </div>
+
+              <div class="col-12 col-md-6">
+                <label class="form-label" for="last-name">Last name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="last-name"
+                  name="lastName"
+                  placeholder="Last Name"
+                  required
+                  autocomplete="family-name"
+                  maxlength="60"
+                  data-rule="personName"
+                  aria-describedby="last-name-error"
+                  data-error-required="Enter your last name.">
+                <p class="invalid-feedback" id="last-name-error" role="alert"></p>
+              </div>
+
+              <div class="col-12">
+                <label class="form-label" for="address-1">Address</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="address-1"
+                  name="address1"
+                  placeholder="Address"
+                  required
+                  autocomplete="address-line1"
+                  maxlength="120"
+                  data-rule="safeText"
+                  aria-describedby="address-1-error"
+                  data-error-required="Enter your street address.">
+                <p class="invalid-feedback" id="address-1-error" role="alert"></p>
+              </div>
+
+              <div class="col-12">
+                <label class="form-label" for="address-2">
+                  Address 2
+                  <span class="gear-optional">(optional)</span>
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="address-2"
+                  name="address2"
+                  placeholder="Address 2"
+                  autocomplete="address-line2"
+                  maxlength="120"
+                  data-rule="safeText"
+                  aria-describedby="address-2-error">
+                <p class="invalid-feedback" id="address-2-error" role="alert"></p>
+              </div>
+
+              <div class="col-12 col-md-6">
+                <label class="form-label" for="country">Country</label>
+                <select
+                  class="form-select"
+                  id="country"
+                  name="country"
+                  required
+                  autocomplete="country-name"
+                  aria-describedby="country-error"
+                  data-error-required="Choose a country."
+>
+                  <option value="">Country</option>
+                  <option value="NZ" selected>New Zealand</option>
+                  <option value="AU">Australia</option>
+                </select>
+                <p class="invalid-feedback" id="country-error" role="alert"></p>
+              </div>
+
+              <div class="col-12 col-md-6">
+                <label class="form-label" for="city">City</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="city"
+                  name="city"
+                  placeholder="City"
+                  required
+                  autocomplete="address-level2"
+                  maxlength="60"
+                  data-rule="safeText"
+                  aria-describedby="city-error"
+                  data-error-required="Enter your city or town.">
+                <p class="invalid-feedback" id="city-error" role="alert"></p>
+              </div>
+
+              <div class="col-12 col-md-6">
+                <label class="form-label" for="postcode">Zip / postal code</label>
+                <!-- inputmode gives the numeric keypad without a spinner -->
+                <input
+                  type="text"
+                  class="form-control"
+                  id="postcode"
+                  name="postcode"
+                  placeholder="Zip/Postal Code"
+                  required
+                  inputmode="numeric"
+                  autocomplete="postal-code"
+                  maxlength="4"
+                  pattern="\d{4}"
+                  data-rule="nzPostcode"
+                  aria-describedby="postcode-error"
+                  data-error-required="Enter your postcode.">
+                <p class="invalid-feedback" id="postcode-error" role="alert"></p>
+              </div>
+
+              <div class="col-12 col-md-6">
+                <label class="form-label" for="phone">Phone number</label>
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="phone"
+                  name="phone"
+                  placeholder="Phone Number"
+                  required
+                  autocomplete="tel"
+                  maxlength="20"
+                  data-rule="nzPhone"
+                  aria-describedby="phone-error"
+                  data-error-required="Enter a contact phone number.">
+                <p class="invalid-feedback" id="phone-error" role="alert"></p>
+              </div>
+            </div>
+
+            <fieldset class="mt-4">
+              <legend class="form-label">Delivery method</legend>
+
+              <div class="row g-3">
+                <div class="col-12 col-md-6">
+                  <div class="gear-option-card h-100">
+                    <div class="d-flex gap-3">
+                      <input class="form-check-input mt-1" type="radio" name="delivery"
+                             id="delivery-standard" value="standard" checked
+                             data-delivery-standard>
+                      <label class="gear-option-card__label" for="delivery-standard">
+                        <span class="gear-option-card__title d-block">
+                          Standard Shipping
+                          <span class="gear-option-card__price" data-delivery-price></span>
+                        </span>
+                        <span class="gear-option-card__meta d-block">Between 2 - 5 working days</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12 col-md-6">
+                  <div class="gear-option-card h-100">
+                    <div class="d-flex gap-3">
+                      <input class="form-check-input mt-1" type="radio" name="delivery"
+                             id="delivery-nextday" value="nextday">
+                      <label class="gear-option-card__label" for="delivery-nextday">
+                        <span class="gear-option-card__title d-block">Next Day Delivery - $20.00</span>
+                        <span class="gear-option-card__meta d-block">24 hours from checkout</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <p class="gear-delivery-notice" data-delivery-notice role="status" hidden></p>
+            </fieldset>
+
+            <hr class="mt-4">
+
+            <div class="d-flex flex-wrap gap-2">
+              <button type="submit" class="btn btn-primary">Next</button>
+              <a class="btn btn-cancel" href="cart.html">Cancel</a>
+            </div>
+          </form>
+        </div>
+
+        <aside class="col-12 col-lg-4" aria-labelledby="summary-heading">
+          <h2 class="gear-display gear-summary__heading" id="summary-heading">Summary</h2>
+          <hr class="gear-summary__rule">
+
+          <ul class="gear-summary__list list-unstyled">
+            <template data-x-for="line in $store.cart.lines">
+              <li class="gear-summary-item">
+                <img src="images/placeholder-product.svg" alt="" data-x-effect="$el.src = line.image"
+                     onerror="this.onerror=null;this.src='images/placeholder-product.svg'">
+                <div>
+                  <p class="gear-summary-item__name" data-x-text="line.name">Product name</p>
+                  <p class="gear-price mb-0" data-x-text="line.summaryLine">1 x $0.00</p>
+                </div>
+              </li>
+            </template>
+          </ul>
+
+          <div class="gear-voucher">
+            <button
+              class="gear-voucher__toggle"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#voucher-panel"
+              aria-expanded="false"
+              aria-controls="voucher-panel"
+>
+              <span>Have a voucher?</span>
+              <i class="bi bi-chevron-down" aria-hidden="true"></i>
+            </button>
+            <div class="collapse" id="voucher-panel">
+              <form class="pt-3" data-validate="coupon">
+                <label class="visually-hidden" for="voucher-code">Voucher code</label>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="voucher-code"
+                    name="coupon"
+                    maxlength="12"
+                    autocomplete="off"
+                    placeholder="Voucher code"
+                    data-rule="couponFormat"
+                    aria-describedby="voucher-code-error">
+                  <button class="btn btn-outline-primary" type="submit">Apply</button>
+                </div>
+                <p class="invalid-feedback d-block mb-0" id="voucher-code-error" role="alert"></p>
+                <p class="gear-form-status" data-form-status role="status"></p>
+              </form>
+            </div>
+          </div>
+
+          <!-- aria-live: totals move when quantity, coupon or delivery changes -->
+          <dl class="gear-summary__totals" aria-live="polite">
+            <div class="gear-summary__row">
+              <dt>Subtotal</dt>
+              <dd data-summary-subtotal data-x-text="$money($store.cart.totals.subtotal)">$0.00</dd>
+            </div>
+            <div class="gear-summary__row" data-summary-discount-row data-x-cloak
+                 data-x-show="$store.cart.totals.discount> 0">
+              <dt>
+                Discount
+                <span data-x-text="$store.cart.couponLabel"></span>
+              </dt>
+              <dd data-summary-discount data-x-text="'-' + $money($store.cart.totals.discount)">$0.00</dd>
+            </div>
+            <div class="gear-summary__row">
+              <dt>Shipping</dt>
+              <dd data-summary-shipping data-x-text="$store.cart.shippingLabel"
+                    data-x-effect="$el.classList.toggle('is-free', $store.cart.totals.shipping === 0)">$0.00</dd>
+            </div>
+            <div class="gear-summary__row gear-summary__row--total">
+              <dt>Total</dt>
+              <dd data-summary-total data-x-text="$money($store.cart.totals.total)">$0.00</dd>
+            </div>
+
+            <!-- NZ prices are advertised GST-inclusive, so this reports the GST
+                 already contained in the total rather than adding to it. -->
+            <div class="gear-summary__row gear-summary__row--note">
+              <dt>Includes GST (15%)</dt>
+              <dd data-summary-gst data-x-text="$money($store.cart.totals.gst)">$0.00</dd>
+            </div>
+          </dl>
+        </aside>
+      </div>
+    </div>
+  </section>
+</main>
+
+
+  <footer class="gear-footer">
+    <div class="container-xxl">
+      <nav aria-label="Footer">
+        <ul class="gear-footer__nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="shop.html">Shop</a></li>
+          <li><a href="index.html#newsletter">Help</a></li>
+        </ul>
+      </nav>
+      <p class="gear-footer__base text-center mb-0">
+        <i class="bi bi-c-circle" aria-hidden="true"></i>
+        <span data-current-year>2025</span>
+        Aotearoa Adventure Gear
+      </p>
+    </div>
+  </footer>
+
+  <!-- Classic scripts sharing one global scope; ES modules cannot be fetched
+       over file://. Load order matters - see BASE_JS in pages.py. -->
+  <script src="js/third_party/bootstrap.bundle.min.js"></script>
+  <script src="js/services/config.js"></script>
+  <script src="js/services/dom.js"></script>
+  <script src="js/services/events.js"></script>
+  <script src="js/services/money.js"></script>
+  <script src="js/services/storage.js"></script>
+  <script src="js/services/products.js"></script>
+  <script src="js/services/cart.js"></script>
+  <script src="js/services/validation-rules.js"></script>
+  <script src="js/services/validation.js"></script>
+  <script src="js/services/alpine.js"></script>
+  <script src="js/components/stars.js"></script>
+  <script src="js/components/site-header.js"></script>
+  <script src="js/third_party/alpine.min.js"></script>
+  <script src="js/pages/checkout.js"></script>
+  <script src="js/pages/shipping.js"></script>
+</body>
+</html>
